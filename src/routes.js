@@ -1,24 +1,32 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import Main from './pages/Main';
 import Profile from './pages/Profile';
 
-const Routes = createStackNavigator();
+const Routes = createAppContainer(
+    createStackNavigator({
+        Main: {
+            screen: Main,
+            navigationOptions: {
+                title: 'DevRadar'
+            },
+        },
+        Profile: {
+            screen: Profile,
+            navigationOptions: {
+                title: 'Perfil Github'
+            }
+        },
+    }, {
+        defaultNavigationOptions: {
+            headerTintColor: '#FFF',
+            headerBackTitleVisible: false,
+            headerStyle: {
+                backgroundColor: '#7D40E7'
+            }
+        },
+    })
+);
 
-function AppRoutes() {
-    return ( 
-        <NavigationContainer>
-            <Routes.Navigator>
-                <Routes.Screen name="Dev360" component={Main} options={{
-                    headerStyle: {backgroundColor: '#7D40E7'},
-                    headerTintColor: '#FFF'
-                }} />
-                <Routes.Screen name="Perfil Github" component={Profile} />
-            </Routes.Navigator>
-        </NavigationContainer>
-    );
-}
-
-export default AppRoutes;
+export default Routes;
